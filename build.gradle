@@ -2,11 +2,23 @@ plugins {
 	id 'org.springframework.boot' version '2.7.3'
 	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
 	id 'java'
+	id "org.openapi.generator" version "6.0.1"
 }
+
+ext {
+	findBugsVersion = "3.0.2"
+	jacksonDatabindVersion = "0.2.1"
+	jacksonVersion = "2.9.9"
+	openApiGeneratorVersion = "4.3.1"
+	swaggerAnnotationsVersion = "1.5.22"
+}
+
 
 group = 'com.signalwealth.user.service'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '8'
+
+sourceSets.main.java.srcDirs += "build/generated/sources"
 
 repositories {
 	mavenCentral()
@@ -14,7 +26,43 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.postgresql:postgresql:42.1.4'
+	implementation "io.swagger.parser.v3:swagger-parser:2.0.20"
+
+	implementation 'org.liquibase:liquibase-core:4.15.0'
+
+	implementation "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
+	implementation "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
+	implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+	implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion"
+
+
+	implementation "io.swagger:swagger-annotations:$swaggerAnnotationsVersion"
+	implementation "org.openapitools:jackson-databind-nullable:$jacksonDatabindVersion"
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	compileOnly 'org.projectlombok:lombok:1.18.24'
+}
+
+compileJava.dependsOn tasks.openApiGenerate
+
+openApiGenerate {
+	generatorName = "java"
+	inputSpec = "$rootDir/src/main/resources/openapi-spec.yml"
+	outputDir = "$rootDir/build/generated/sources/"
+	apiPackage = "com.signalwealth.service.product.userservice"
+	modelPackage = "com.signalwealth.service.product.userservice.dto"
+	configOptions = [
+			dateLibrary: "java8",
+			generateBuilders: "true",
+			library: "native",
+			useRuntimeException: "true",
+			generatePom: "false",
+			sourceFolder: "build/generated/sources/"
+	]
 }
 
 tasks.named('test') {

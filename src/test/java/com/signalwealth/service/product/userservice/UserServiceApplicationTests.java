@@ -1,4 +1,4 @@
-package com.signalwealth.user.service.userservice;
+package com.signalwealth.service.product.userservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

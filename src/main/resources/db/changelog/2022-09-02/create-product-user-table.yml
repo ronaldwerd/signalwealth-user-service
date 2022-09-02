@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id:  1
+      author:  ronald
+      changes:
+        - createTable:
+            tableName:  product_user
+            columns:
+              - column:
+                  name:  id
+                  type:  int
+                  autoIncrement:  true
+                  constraints:
+                    primaryKey:  true
+                    nullable:  false
+              - column:
+                  name:  firstname
+                  type:  varchar(50)
+              - column:
+                  name:  lastname
+                  type:  varchar(50)
+                  constraints:
+                    nullable:  false
+              - column:
+                  name:  state
+                  type:  char(2)
+              - column:
+                  name:  expires_on
+                  type:  date
+              - column:
+                  name:  created_on
+                  type:  datetime
+              - column:
+                  name:  updated_on
+                  type:  datetime
+

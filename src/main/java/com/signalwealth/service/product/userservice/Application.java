@@ -1,13 +1,13 @@
-package com.signalwealth.user.service.userservice;
+package com.signalwealth.service.product.userservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class UserServiceApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(UserServiceApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 }
