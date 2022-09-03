@@ -1,3 +1,0 @@
-databaseChangeLog:
-  - include:
-      file: db/changelog/2022-09-02/create-product-user-table.yml
